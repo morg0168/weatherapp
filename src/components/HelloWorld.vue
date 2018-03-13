@@ -1,105 +1,80 @@
 <template>
   <div class="hello">
-    <h1 v-for="msg1 in msg" >{{ msg1.firstname }}</h1>
-    <div>
-      <input type="text" v-model="input_val">
-    </div>
-      Input Value: <span v-text="input_val"></span>
-    <h2>Essential Links</h2>
+    <h1>{{ nowformatted(now, startDate, startDateSeason) }}</h1>
     <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
+    <li v-for="index in 4">{{  }}</li>
     </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+    <h2>{{ displayTimeLeft() }}</h2>
+
     <button class="btn btn-primary" v-on:click="counter++">You've clicked this button {{ counter }} times.</button>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: [
-        {firstname: 'Sebastian', lastname: 'Eschweiler'},
-        {firstname: 'Bill', lastname: 'Smith'},
-        {firstname: 'John', lastname: 'Porter'}
-      ],
-      input_val: '',
       counter: 0,
+      moment: 'moment',
+      startDate: '',
+      startDateSeason: '',
+      now: '',
+      nextMoment: '',
+      previousMoment: '',
+      daysLeft: '',
+
+      season1: '',
+      season2: '',
+      season3: '',
+      season4: '',
+
+      timeToSeason1: '',
+
+      dynamicTimestamps: [
+        {daysUntil: 22, season: 'spring'}, 
+        {daysUntil: 52, season: 'summer'},
+        {daysUntil: 83, season: 'fall'},
+        {daysUntil: 102, season: 'winter'},
+      ],
+
+      nowformatted: function(season1, season2, season3, season4, now, startDate, startDateSeason) {
+
+        startDate = moment().startOf('year');
+
+        startDateSeason = startDate.subtract(1, 'month').add(20, 'days');
+
+        season1 = startDateSeason.clone().add(3, 'months');
+        season2 = startDateSeason.clone().add(6, 'months');
+        season3 = startDateSeason.clone().add(9, 'months');
+        season4 = startDateSeason.clone().add(12, 'months');
+
+        console.log(season1, season2, season3, season4);
+
+        now = new moment();
+        //return now;
+
+        if (now.isBefore(season1)) {
+          console.log('now is before season1 ' + season1);
+          
+
+        }
+        //if now.isSame(nextMoment);
+        //if now.isBefore(nextMoment);
+
+      },
+
+      //do the calculation
+      displayTimeLeft() {
+        return 'TEST DAYS LEFT';
+        //daysLeft = nextMoment.subtract('days', now);
+        //daysLeft.fromNow();
+      },
+      //do the next calculation
+      findNextDifference() {
+
+      }
     }
   }
 }
