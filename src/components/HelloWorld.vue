@@ -11,10 +11,13 @@
 </template>
 
 <script>
+
 import moment from 'moment'
+
 export default {
   name: 'HelloWorld',
-  data () {
+
+  data: function () {
     return {
       counter: 0,
       moment: 'moment',
@@ -23,7 +26,6 @@ export default {
       startDateSeason: '',
 
       theMonth: '',
-      timeToSeason1: '',
 
       season1: '',
       season2: '',
@@ -33,16 +35,20 @@ export default {
       seasonToMatch: '',
 
       dFormatted: '',
-      dFormatted2: '',
+      dFormatted2: ''
+    }
+  }, 
 
+  ready: {
+    //this.nowformatted(); for e.g.
+  }, 
 
-      nowformatted: function(seasonToMatch, dFormatted, dFormatted2, theMonth, timeToSeason1, season1, season2, season3, season4, now, startDate, startDateSeason) {
+  methods: {
+      nowformatted: function(seasonToMatch, dFormatted, dFormatted2, theMonth, season1, season2, season3, season4, now, startDate, startDateSeason) {
 
-        //add 284 and debug at winter again
-        now = new moment().add(0, 'day');
+        now = new moment().add(0, 'days');
 
-        //account for leap year
-
+        //jan 1st of Y
         startDate = now.clone().startOf('year');
 
         //december 21st of Y-1
@@ -54,14 +60,12 @@ export default {
         //june 21st Y
         season2 = startDateSeason.clone().add(6, 'months');
 
-        //september 21st Y
+        //september 21st 2018
         season3 = startDateSeason.clone().add(9, 'months');
 
-        //december 21st Y
+        //december 21st Y  2018
         season4 = startDateSeason.clone().add(12, 'months');
 
-
-        timeToSeason1 = [];
 
         if (now.isBefore(season1) && now.isAfter(startDateSeason)) {
 
@@ -69,30 +73,89 @@ export default {
 
           theMonth = 'spring';
 
-        } else if (now.isAfter(season1) && now.isBefore(season2)) {
+        } 
+
+        //its march 21st
+
+        else if (now.isSame(season1)) {
+
+          seasonToMatch = season1;
+
+          theMonth = 'spring';
+
+        }
+
+        else if (now.isAfter(season1) && now.isBefore(season2)) {
 
           seasonToMatch = season2;
 
           theMonth = 'summer';
 
-        } else if (now.isAfter(season2) && now.isBefore(season3)) {
+        }  
+
+        //its june 21st
+
+        else if (now.isSame(season2)) {
+
+          seasonToMatch = season2;
+
+          theMonth = 'summer';
+
+        }
+
+        else if (now.isAfter(season2) && now.isBefore(season3)) {
 
           seasonToMatch = season3;
 
           theMonth = 'autumn';
 
-        } else if (now.isAfter(season3) && now.isBefore(season4)) {
+        }  
+
+        //its september 21st
+
+        else if (now.isSame(season3)) {
+
+          seasonToMatch = season3;
+
+          theMonth = 'autumn';
+
+        }
+
+         else if (now.isAfter(season3) && now.isBefore(season4)) {
 
           seasonToMatch = season4;
 
           theMonth = 'winter';
 
-        } else {
+        }  
+
+        //its december 21st
+
+        else if (now.isSame(season4)) {
+
+          seasonToMatch = season4;
+
+          theMonth = 'winter';
+
+        } 
+ 
+        else if (now.isAfter(season4)) {
+
+          startDateSeason.add(1, 'year');
+
+          season1 = startDateSeason.clone().add(3, 'months');
+
+          seasonToMatch = season1;
+
+          theMonth = 'spring';
+
+        } 
+
+        else {
 
           //its the 21st
 
         }
-
 
         dFormatted = seasonToMatch.diff(now, 'days');
 
@@ -100,10 +163,8 @@ export default {
 
         return [dFormatted, dFormatted2];
 
-        //if now.isSame(nextMoment);
-
       }
-    }
+
   }
 }
 </script>
