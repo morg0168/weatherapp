@@ -7,12 +7,18 @@
     <h2>{{ nowformatted()[1] }}</h2>
 
     <button class="btn btn-primary" v-on:click="counter++">You've clicked this button {{ counter }} times.</button>
+
+    <h2><blockquote>{{ schedule }}</blockquote></h2> 
+     <h2>{{ response }}</h2>
+
   </div>
 </template>
 
 <script>
 
 import moment from 'moment'
+
+import axios from "axios";
 
 export default {
   name: 'HelloWorld',
@@ -35,13 +41,20 @@ export default {
       seasonToMatch: '',
 
       dFormatted: '',
-      dFormatted2: ''
+      dFormatted2: '',
+
+      schedule: '',
+      response: ''
     }
   }, 
 
-  ready: {
-    //this.nowformatted(); for e.g.
-  }, 
+   mounted() {
+      axios({ method: "GET", "url": "https://httpbin.org/ip" }).then(result => {
+          this.schedule = result.data.origin;
+      }, error => {
+          console.error(error);
+      });
+  },
 
   methods: {
       nowformatted: function(seasonToMatch, dFormatted, dFormatted2, theMonth, season1, season2, season3, season4, now, startDate, startDateSeason) {
@@ -165,8 +178,10 @@ export default {
 
       }
 
+    },
+
   }
-}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
