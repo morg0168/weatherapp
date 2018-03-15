@@ -2,11 +2,11 @@
   <div class="hello">
     <h1>{{ nowformatted()[0] }}</h1>
 
-    <h3>days left until</h3>
+    <h2>days till</h2>
 
-    <h2>{{ nowformatted()[1] }}</h2>
+    <h3>{{ nowformatted()[1] }}</h3>
 
-    <button class="btn btn-primary" v-on:click="counter++">You've clicked this button {{ counter }} times.</button>
+    <!-- <button class="btn btn-primary" v-on:click="counter++">You've clicked this button {{ counter }} times.</button> -->
   </div>
 </template>
 
