@@ -6,10 +6,7 @@
 
     <h3>{{ nowformatted()[1] }}</h3>
 
-    <button class="btn btn-primary" v-on:click="counter++">You've clicked this button {{ counter }} times.</button>
-
-    <h6><blockquote>{{ todaysSunrise }}</blockquote></h6> 
-    <h6><blockquote>{{ todaysSunset }}</blockquote></h6> 
+    <!-- <button class="btn btn-primary" v-on:click="counter++">You've clicked this button {{ counter }} times.</button> -->
 
   </div>
 </template>
@@ -41,94 +38,13 @@ export default {
       seasonToMatch: '',
 
       dFormatted: '',
-      dFormatted2: '',
-
-      response: '',
-      ipresult: '',
-
-      sunrise: '',
-      sunset: '',
-
-      str: '',
-
-      todaysSunrise: '',
-      todaysSunset: '',
-
-      sunSchedule: ''
+      dFormatted2: ''
     }
   }, 
 
    mounted(ipresult) {
 
-      //get ip
 
-      axios({ method: "GET", "url": "https://httpbin.org/ip" }).then(result => {
-
-          ipresult = result.data.origin;
-
-          console.log(ipresult);
-
-          getCoordinates(ipresult);
-
-      }, error => {
-
-          console.error(error);
-
-      });
-
-      //consume http://ipinfo.io/ api for latitude and longitude
-
-      function getCoordinates(ipresult){
-
-        axios({method: "GET", "url": "https://www.iplocate.io/api/lookup/" + ipresult}).then(result => {
-
-          console.log(response);
-
-        }, error => {
-
-            console.error(error);
-
-        });
-
-      }
-
-      //consume https://sunrise-sunset.org/api for sunset and sunrise times
-
-      axios({ method: "GET", "url": "https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400" }).then(result => {
-
-
-          this.sunrise = result.data.results.sunrise;
-
-          this.sunset = result.data.results.sunset;
-
-          this.str = [this.sunrise, this.sunset];
-
-
-
-          //turn sunrise and sunset strings into moment objects
-
-          this.todaysSunrise = moment(this.str[0], 'HH:mm:ss A');
-
-          this.todaysSunset = moment(this.str[1], 'HH:mm:ss A');
-
-          console.log(this.todaysSunset); 
-
-
-
-          //countdown minutes till
-
-
-
-         
-      }, error => {
-
-          console.error(error);
-
-      });
-    
-
-
-      //change background dynamically
 
   },
 
